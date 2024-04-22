@@ -56,14 +56,12 @@ def create_label_dict2(json_file):
         path = item['path']
         png = path.split("\\")[-1]
         id = png[0]
-        if label in label_dict:
-            id_dict = label_dict[label]
-            assert id in id_dict
-            id_dict[id].append(path)
-
-        else:
+        if label not in label_dict:
             source_dict = {"G":[], "H":[], "L":[], "X":[], "Y":[]}
             label_dict[label] = source_dict
+        id_dict = label_dict[label]
+        assert id in id_dict
+        id_dict[id].append(path)
 
     return label_dict
 
@@ -85,7 +83,3 @@ save_label_dict(label_dict, output_file)
 output_file2 = 'label_dict_sources.json'
 label_dict2 = create_label_dict2(json_file)
 save_label_dict2(label_dict2, output_file2)
-
-
-
-
